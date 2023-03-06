@@ -3,6 +3,7 @@ import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
 import BlogForm from './components/BlogForm';
 import Notification from './components/Notification';
+import Toggle from './components/Toggle';
 import blogService from './services/blogs';
 import loginService from './services/login';
 import './App.css';
@@ -95,13 +96,15 @@ const App = () => {
     <div>
       <h1>Log in to application </h1>
       <Notification message={message} />
-      <LoginForm 
-        handleLogin={handleLogin}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword} 
-      />
+      <Toggle buttonLabel='login'>
+        <LoginForm 
+          handleLogin={handleLogin}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword} 
+        />
+      </Toggle>
     </div>
         )
       };
