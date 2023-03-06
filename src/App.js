@@ -90,6 +90,31 @@ const App = () => {
       console.log('error', error);
     }
   };
+
+  const updateBlog = async (blog) => {
+    const responseBlog = await blogService.update(blog.id, {
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes + 1
+    }
+    );
+
+    const newBlogs = blogs.map((currentBlog) => currentBlog.id === blog.id ? 
+    { ...currentBlog, likes: currentBlog.likes + 1} : currentBlog);
+
+    setBlogs(newBlogs);
+    
+    setMessage({
+      text: `You liked: ${responseBlog.title} by ${responseBlog.author}`,
+      type: 'success',
+    });
+    
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+
+  }
   
   if (user === null) {
     return (
@@ -116,7 +141,7 @@ const App = () => {
       <p>{user.username} logged in <button onClick={handleLoggout}>logout</button></p>
       <BlogForm handleBlogForm={handleBlogForm}/>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
       )}
     </div>
   );
