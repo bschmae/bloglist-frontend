@@ -96,7 +96,7 @@ const App = () => {
     <div>
       <h1>Log in to application </h1>
       <Notification message={message} />
-      <Toggle buttonLabel='login'>
+      <Toggle showLabel='login' hideLabel='cancel'>
         <LoginForm 
           handleLogin={handleLogin}
           username={username}
@@ -113,10 +113,10 @@ const App = () => {
     <div>     
       <h1>Blogs</h1> 
       <Notification message={message} />
-      <p>{user.username} logged in <button onClick={handleLoggout}>loggout</button></p>
+      <p>{user.username} logged in <button onClick={handleLoggout}>logout</button></p>
       <BlogForm handleBlogForm={handleBlogForm}/>
-      {blogs.map(blog => 
-      <Blog key={blog.id} blog={blog} />
+      {blogs.map(blog =>
+        <Blog key={blog.id} blog={blog} />
       )}
     </div>
   );
