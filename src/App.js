@@ -109,7 +109,7 @@ const App = () => {
       text: `You liked: ${responseBlog.title} by ${responseBlog.author}`,
       type: 'success',
     });
-    
+
     setTimeout(() => {
       setMessage(null);
     }, 5000);
@@ -140,7 +140,11 @@ const App = () => {
       <Notification message={message} />
       <p>{user.username} logged in <button onClick={handleLoggout}>logout</button></p>
       <BlogForm handleBlogForm={handleBlogForm}/>
-      {blogs.map(blog =>
+      {blogs
+      .sort((a, b) => {
+        return b.likes - a.likes
+      })
+      .map(blog =>
         <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
       )}
     </div>
