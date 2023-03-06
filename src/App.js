@@ -113,9 +113,36 @@ const App = () => {
     setTimeout(() => {
       setMessage(null);
     }, 5000);
-
   }
   
+  const deleteBlog = async (blog) => {
+    try {
+    await blogService.remove(blog.id);
+
+    const newBlogs = blogs.filter((currentBlog) => currentBlog.id !== blog.id);
+
+    setBlogs(newBlogs);
+
+    setMessage({
+      text: `You deleted ${blog.title} by ${blog.author}`,
+      type: 'success'
+    });
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+    
+  } catch (error) {
+    setMessage({
+      text: 'You are not authorized to delete this post',
+      type: 'error'
+    });
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  };
+};
+
+
   if (user === null) {
     return (
     <div>
@@ -145,7 +172,7 @@ const App = () => {
         return b.likes - a.likes
       })
       .map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog} />
       )}
     </div>
   );

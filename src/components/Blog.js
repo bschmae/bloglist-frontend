@@ -1,6 +1,6 @@
 import Toggle from "./Toggle"
 
-const Blog = ({ blog, updateBlog }) => {
+const Blog = ({ blog, updateBlog, deleteBlog }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -14,7 +14,13 @@ const Blog = ({ blog, updateBlog }) => {
       ...blog,
       likes: blog.likes + 1
     });
+  };
+
+  const handleDelete = () => {
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+      deleteBlog(blog);
   }
+};
 
   return (
   <div style={blogStyle}>
@@ -26,6 +32,8 @@ const Blog = ({ blog, updateBlog }) => {
         <button onClick={ handleLike }>like</button>
         <br></br>
         user: { blog.user ? blog.user.username : '' }
+        <br></br>
+        <button onClick={handleDelete}>remove</button>
       </Toggle>
   </div> 
   ); 
