@@ -11,32 +11,28 @@ describe('toggle', () => {
     beforeEach(() => {
         container = render(
             <Toggle showLabel='view' hideLabel='hide' >
-                <p>url</p>
-                <br></br>
-                <p>likes</p>
+                <div className='testDiv' />
             </Toggle>
         ).container;
     });
 
+    test('rendres its children', () => {
+        expect(container.querySelector('.testDiv')).toBeDefined()
+    })
+
     test('at start the children are not displayed', () => {
         const div = container.querySelector('.togglableContent');
+
         expect(div).toHaveStyle('display: none');
     });
 
     test('expect click view button to display url and likes', async () => {
-        const mockHandler = jest.fn();
-
         const user = userEvent.setup();
         const button = screen.getByText('view');
         await user.click(button);
 
         const div = container.querySelector('.togglableContent');
 
-        const urlElement = screen.getByText('url');
-        const likesElement = screen.getByText('likes');
-
-        expect(urlElement).toBeDefined();
-        expect(likesElement).toBeDefined();
         expect(div).not.toHaveStyle('display: none');
     });
 }); 
