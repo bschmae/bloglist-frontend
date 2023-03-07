@@ -23,7 +23,7 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
 };
 
   return (
-  <div style={blogStyle}>
+  <div className='blog' style={blogStyle}>
       { blog.title } - { blog.author }
       <Toggle showLabel='view' hideLabel='hide'>
         { blog.url }
