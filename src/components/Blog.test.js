@@ -5,15 +5,36 @@ import userEvent from '@testing-library/user-event';
 import Blog from './Blog';
 
 describe('blog', () => {
+    const mockBlogUpdate = jest.fn();
+
+    const blog = {
+        title: 'title',
+        url: 'www.url.com',
+        likes: 0,
+        author: 'author',
+    }
+
+    beforeEach(() => {
+    let componenet = render(<Blog 
+            blog={blog}
+            updateBlog={mockBlogUpdate}
+            />)
+    });
+
     test('renders content', () => {
-        const blog = {
-            title: 'title',
-            author: 'author',
-        };
-    
-        render(<Blog blog={blog} />)
-    
-        const element = screen.getByText('title - author');
-        expect(element).toBeDefined();
+        const element1 = screen.getByText('title - author');
+
+        expect(element1).toBeDefined();
+
+    });
+
+    test('if the like button is clicked twice, the event handler is called twice', async () => {
+
+        const user = userEvent.setup();
+        const button = screen.getByText('like');
+        await user.click(button);
+        await user.click(button);
+
+        expect(mockBlogUpdate.mock.calls).toHaveLength(2);
     });
 });

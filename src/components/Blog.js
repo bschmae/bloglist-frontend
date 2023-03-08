@@ -24,14 +24,14 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
 
   return (
   <div className='blog' style={blogStyle}>
-      { blog.title } - { blog.author }
+      <p>{ blog.title } - { blog.author }</p>
       <Toggle showLabel='view' hideLabel='hide'>
-        { blog.url }
+        <p>{ blog.url }</p>
         <br></br>
-        likes: { blog.likes } 
+        <p>likes: { blog.likes }</p> 
         <button onClick={ handleLike }>like</button>
         <br></br>
-        user: { blog.user ? blog.user.username : '' }
+        <p>user: { blog.user ? blog.user.username : '' }</p>
         <br></br>
         <button onClick={handleDelete}>remove</button>
       </Toggle>

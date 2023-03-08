@@ -26,7 +26,7 @@ describe('toggle', () => {
         expect(div).toHaveStyle('display: none');
     });
 
-    test('expect click view button to display url and likes', async () => {
+    test('expect click view button to display children', async () => {
         const user = userEvent.setup();
         const button = screen.getByText('view');
         await user.click(button);
