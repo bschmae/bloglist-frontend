@@ -73,7 +73,7 @@ const App = () => {
       });
       setBlogs(blogs.concat(blog));
       setMessage({ 
-        text: `A new blog '${blog.title}' has been added by ${blog.author}.`,
+        text: `A new blog ${blog.title} by ${blog.author} has been added`,
         type: 'success'
       });
       setTimeout(() => {
@@ -130,7 +130,7 @@ const App = () => {
     setTimeout(() => {
       setMessage(null);
     }, 5000);
-    
+
   } catch (error) {
     setMessage({
       text: 'You are not authorized to delete this post',

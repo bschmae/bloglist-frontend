@@ -37,5 +37,29 @@ describe('Blog app', function() {
       cy.contains('Invalid username or password')
     });
   });
+
+  describe('When logged in', function() {
+    beforeEach(function() {
+      cy.contains('login').click()
+      cy.get('#username').type('testUser1');
+      cy.get('#password').type('password');
+      cy.get('#login-button').click()
+    });
+
+    it('a blog can be created', function() {
+      cy.get('#title').type('title');
+      cy.get('#author').type('author');
+      cy.get('#url').type('url');
+      cy.contains('create new blog').click();
+      cy.contains('A new blog title by author has been added');
+
+      cy.request('GET', 'http://localhost:3003/api/blogs/').as('blogs');
+
+      cy.get('@blogs').should((response) => {
+        const data = response.body
+        expect(data).to.have.length(1)
+      });
+    });
+  });
 });
 
