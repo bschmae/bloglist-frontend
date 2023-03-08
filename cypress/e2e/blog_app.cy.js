@@ -36,6 +36,7 @@ describe('Login', function() {
     cy.get('#username').type('testUser1');
     cy.get('#password').type('password');
     cy.get('#login-button').click()
+    cy.contains('testUser1 logged in')
   });
 
   it('fails with incorrect credentials', function() {
