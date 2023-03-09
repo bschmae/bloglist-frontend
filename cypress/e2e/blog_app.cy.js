@@ -44,13 +44,15 @@ describe('Blog app', function() {
       cy.get('#username').type('testUser1');
       cy.get('#password').type('password');
       cy.get('#login-button').click()
-    });
 
-    it('a blog can be created', function() {
       cy.get('#title').type('title');
       cy.get('#author').type('author');
       cy.get('#url').type('url');
       cy.contains('create new blog').click();
+
+    });
+
+    it('a blog can be created', function() {
       cy.contains('A new blog title by author has been added');
 
       cy.request('GET', 'http://localhost:3003/api/blogs/').as('blogs');
@@ -62,16 +64,23 @@ describe('Blog app', function() {
     });
 
     it('user can like a blog', function() {
-      cy.get('#title').type('title');
-      cy.get('#author').type('author');
-      cy.get('#url').type('url');
-      cy.contains('create new blog').click();
-
       cy.contains('view').click();
       cy.get('#like-button').click();
 
       cy.contains('likes: 1');
-    })
+    });
+
+    it('user who created a blog can delete it', function() {
+      cy.contains('view').click();
+      cy.contains('remove').click();
+
+      cy.request('GET', 'http://localhost:3003/api/blogs/').as('blogs');
+
+      cy.get('@blogs').should((response) => {
+        const data = response.body
+        expect(data).to.have.length(0)
+      });
+    });
   });
 });
 
