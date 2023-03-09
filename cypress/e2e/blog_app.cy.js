@@ -60,6 +60,18 @@ describe('Blog app', function() {
         expect(data).to.have.length(1)
       });
     });
+
+    it('user can like a blog', function() {
+      cy.get('#title').type('title');
+      cy.get('#author').type('author');
+      cy.get('#url').type('url');
+      cy.contains('create new blog').click();
+
+      cy.contains('view').click();
+      cy.get('#like-button').click();
+
+      cy.contains('likes: 1');
+    })
   });
 });
 
